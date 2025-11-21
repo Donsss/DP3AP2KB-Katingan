@@ -1,0 +1,89 @@
+/* Warna Kustom dari Desain Anda */
+:root {
+    --custom-bg: #bed748; /*<-- Warna utama untuk background */
+    --custom-accent: #01baf2;
+}
+
+/* Global Box Sizing */
+* {
+    box-sizing: border-box;
+}
+
+/* Fix untuk container Bootstrap HANYA pada mobile */
+@media (max-width: 991.98px) {
+    html, body {
+        overflow-x: hidden;
+        max-width: 100vw;
+        width: 100%;
+    }
+    
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+        max-width: 100%;
+    }
+    
+    .row {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+    
+    section {
+        overflow-x: hidden;
+        max-width: 100%;
+    }
+}
+
+/* Header */
+.top-bar {
+    background-color: var(--custom-bg); /*<-- Menggunakan warna background #bed748 */
+    font-size: 15px;
+}
+
+.navbar .nav-link {
+    color: #6c757d; /* text-gray-700 */
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: var(--custom-accent);
+}
+
+/* Footer */
+.footer-custom {
+    background-color: var(--custom-bg); /*<-- Menggunakan warna background #bed748 */
+}
+
+.footer-divider {
+    width: 48px;
+    height: 2px;
+    background-color: var(--custom-accent);
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--custom-accent);
+    color: white;
+    text-decoration: none;
+    margin-right: 0.75rem;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.social-icon:hover {
+    opacity: 0.8;
+    color: white;
+}
+
+/* Utilitas Opasitas Teks & Border */
+.text-white-80 {
+    color: rgba(255, 255, 255, 0.8);
+}
+.border-white-30 {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}

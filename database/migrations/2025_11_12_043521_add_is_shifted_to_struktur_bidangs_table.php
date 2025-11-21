@@ -1,0 +1,19 @@
+<?php
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    public function up(): void {
+        Schema::table('struktur_bidangs', function (Blueprint $table) {
+            // Tambahkan kolom baru setelah 'urutan'
+            $table->boolean('is_shifted')->default(false)->after('urutan');
+        });
+    }
+
+    public function down(): void {
+        Schema::table('struktur_bidangs', function (Blueprint $table) {
+            $table->dropColumn('is_shifted');
+        });
+    }
+};
