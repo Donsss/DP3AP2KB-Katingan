@@ -21,7 +21,7 @@ use App\Http\Controllers\API\VisiMisiController;
 
 Route::post('login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->name('api.')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     
     Route::get('posts', [PostController::class, 'index']);
@@ -53,22 +53,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('struktur-anggota/reorder', [StrukturAnggotaController::class, 'updateOrder']);
     Route::apiResource('struktur-anggota', StrukturAnggotaController::class);
 
-    // Tugas (Single Resource)
     Route::get('tugas', [TugasController::class, 'edit']); // Get info
     Route::put('tugas', [TugasController::class, 'update']); // Update file
     Route::delete('tugas', [TugasController::class, 'destroy']); // Delete file
 
-    // Users
     Route::get('users/trash', [UserController::class, 'trash']);
     Route::post('users/{id}/restore', [UserController::class, 'restore']);
     Route::delete('users/{id}/force', [UserController::class, 'forceDelete']);
     Route::apiResource('users', UserController::class);
 
-    // Videos
     Route::post('videos/fetch-info', [VideoController::class, 'fetchYoutubeInfo']);
     Route::apiResource('videos', VideoController::class);
 
-    // Visi Misi (Single Resource)
     Route::get('visimisi', [VisiMisiController::class, 'index']);
     Route::put('visimisi', [VisiMisiController::class, 'update']);
 });
