@@ -53,6 +53,7 @@
                                 <input type="file" name="site_logo" id="site_logo" data-file-poster="{{ $settings->site_logo ? asset('storage/' . $settings->site_logo) : '' }}">
                                 @error('site_logo') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
                             </div>
+                            <div class="form-text">Ekstensi yang diperbolehkan: jpg, jpeg, png. Ukuran maksimal: 2MB.</div>
                         </div>
                     </div>
 
@@ -134,14 +135,12 @@ Sabtu: 08:00 - 12:00">{{ old('jam_kerja_input', $settings->jam_kerja_input) }}</
     @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Inisialisasi FilePond untuk Logo
-            // (Kita asumsikan FilePond dan plugin-nya sudah di-load global di app.js)
             const logoInput = document.querySelector('input[id="site_logo"]');
             
             if (logoInput) {
                 FilePond.create(logoInput, {
                     storeAsFile: true,
-                    stylePanelLayout: 'integrated', // Tampilan kotak, bukan bulat
+                    stylePanelLayout: 'integrated',
                     labelIdle: `Seret & lepas logo baru atau <span class="filepond--label-action"> Telusuri </span>`,
                     
                     // Validasi (sesuai controller)

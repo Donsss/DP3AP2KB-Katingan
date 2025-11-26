@@ -1,11 +1,3 @@
-{{-- 
-  HTML, CSS, dan JS yang sudah diperbaiki.
-  - Menggunakan desain Uiverse Anda.
-  - Menggunakan logika JavaScript saya yang sudah benar.
-  - Menggunakan CSS position: fixed yang benar.
---}}
-
-{{-- HTML (Sudah diberi ID agar ditemukan JS) --}}
 <button class="button-btt" id="btnBackToTop" aria-label="Kembali ke atas" title="Kembali ke atas">
   <svg class="svgIcon" viewBox="0 0 384 512">
     <path
@@ -16,18 +8,13 @@
 
 <style>
     .button-btt {
-        /* == LOGIKA POSISI (DARI KODE SAYA) == */
-        position: fixed;     /* <--- INI KUNCINYA */
+        position: fixed;
         bottom: 20px;
         right: 20px;
         z-index: 99;
-
-        /* == LOGIKA SEMBUNYI (DARI KODE SAYA) == */
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.3s ease, visibility 0.3s ease, width 0.3s ease, background-color 0.3s ease;
-        
-        /* == DESAIN UIVERSE (DARI KODE ANDA) == */
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -42,7 +29,6 @@
         overflow: hidden;
     }
 
-    /* == LOGIKA MUNCUL (DARI KODE SAYA) == */
     .button-btt.show {
         opacity: 1;
         visibility: visible;
@@ -87,22 +73,17 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // 1. Ambil tombolnya (Sekarang ID-nya benar: "btnBackToTop")
         const btnBackToTop = document.getElementById('btnBackToTop');
 
         if (btnBackToTop) {
-            
-            // 2. Tampilkan/sembunyikan saat di-scroll
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 300) { 
-                    // JS ini menambahkan class "show"
                     btnBackToTop.classList.add('show');
                 } else {
                     btnBackToTop.classList.remove('show');
                 }
             });
 
-            // 3. Aksi saat tombol diklik
             btnBackToTop.addEventListener('click', (e) => {
                 e.preventDefault(); 
                 window.scrollTo({
