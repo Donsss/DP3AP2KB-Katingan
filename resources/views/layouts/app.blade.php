@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ $settings->site_name ?? config('app.name', 'DP3AP2KB') }}</title>
+
+    @if(isset($settings) && $settings->site_logo)
+        <link rel="icon" href="{{ asset('storage/' . $settings->site_logo) }}">
+    @else
+        <link rel="icon" href="{{ asset('favicon.ico') }}">
+    @endif
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -194,6 +200,10 @@
                     // Cek jika form punya target '_blank' (jarang, tapi mungkin)
                     if(form.getAttribute('target') !== '_blank') {
                         showLoader();
+                    }
+
+                    if (e.defaultPrevented) {
+                        return; // Jika dibatalkan, HENTIKAN proses, jangan tampilkan loader
                     }
                 });
             });

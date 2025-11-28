@@ -26,7 +26,9 @@ class AppServiceProvider extends ServiceProvider
             [
                 'components.user-components.layout',
                 'components.user-components.header',
-                'components.user-components.footer'
+                'components.user-components.footer',
+                'layouts.app',
+                'layouts.guest',
             ], 
             function ($view) {
                 static $settings = null;

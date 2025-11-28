@@ -57,9 +57,9 @@
     }
     .sidebar-header {
             padding: 15px 20px;
-            display: flex; /* Menggunakan Flexbox */
-            justify-content: center; /* Menengahkan item (logo + teks) */
-            align-items: center; /* Menjaga item tetap di tengah vertikal */
+            display: flex; 
+            justify-content: center;
+            align-items: center;
             border-bottom: 1px solid #e9ecef;
         }
     #sidebar .list-unstyled a {
@@ -112,11 +112,17 @@
 </style>
 <nav id="sidebar">
     <div class="sidebar-header">
-        <div class="d-flex align-items-center">
-            <img src="{{ asset('images/katingan-logo.png') }}" alt="Logo DP3A" style="height: 40px;" class="me-3">
+        <div class="d-flex align-items-center justify-content-center text-start">
+            <img src="{{ isset($settings) && $settings->site_logo ? asset('storage/' . $settings->site_logo) : asset('images/katingan-logo.png') }}" 
+                 alt="Logo Aplikasi" 
+                 style="height: 40px; width: auto; object-fit: contain;" 
+                 class="me-3">
 
             <div>
-                <h3 class="mb-0 fs-5 text-dark fw-bold">DP3AP2KB</h3>
+                <h3 class="mb-0 fs-5 text-dark fw-bold">
+                    {{ $settings->site_name ?? 'DP3AP2KB' }}
+                </h3>
+                
                 <span class="small text-muted fw-bold" style="font-size: 9px;">KABUPATEN KATINGAN</span>
             </div>
         </div>

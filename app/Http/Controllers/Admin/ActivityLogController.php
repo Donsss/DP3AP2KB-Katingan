@@ -13,4 +13,13 @@ class ActivityLogController extends Controller
         $activities = Activity::latest()->paginate(20);
         return view('admin.activity-log.index', compact('activities'));
     }
+
+    public function destroy($id)
+    {
+        $activity = Activity::findOrFail($id);
+        
+        $activity->delete();
+        
+        return redirect()->back()->with('success', 'Log aktivitas berhasil dihapus.');
+    }
 }

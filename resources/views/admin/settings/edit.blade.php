@@ -6,6 +6,7 @@
     <div class="card shadow-sm border-0">
         <div class="card-body">
 
+            {{-- Navigasi Tab --}}
             <ul class="nav nav-tabs" id="settingsTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" type="button" role="tab" aria-controls="general" aria-selected="true">Umum</button>
@@ -27,6 +28,7 @@
 
                 <div class="tab-content" id="settingsTabContent">
                     
+                    {{-- TAB UMUM --}}
                     <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
                         <div class="py-4">
                             <div class="mb-3">
@@ -48,15 +50,57 @@
                                     <div class="invalid-feedback">{{ $message }}</div> 
                                 @enderror
                             </div>
-                            <div class="mb-3">
-                                <label for="site_logo" class="form-label">Logo Utama (Kosongkan jika tidak diganti)</label>
-                                <input type="file" name="site_logo" id="site_logo" data-file-poster="{{ $settings->site_logo ? asset('storage/' . $settings->site_logo) : '' }}">
-                                @error('site_logo') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
+
+                            <hr class="my-4">
+
+                            {{-- GRID LOGO: Kiri (Preview) & Kanan (Upload) --}}
+                            <div class="row align-items-start">
+                                {{-- Kiri: Logo Saat Ini --}}
+                                <div class="col-md-4 mb-3 mb-md-0">
+                                    <label class="form-label fw-bold text-muted">Logo Saat Ini</label>
+                                    <div class="card bg-light border">
+                                        <div class="card-body text-center d-flex align-items-center justify-content-center" style="min-height: 200px;">
+                                            @if($settings->site_logo)
+                                                <img src="{{ asset('storage/' . $settings->site_logo) }}" 
+                                                     alt="Logo Website" 
+                                                     class="img-fluid rounded" 
+                                                     style="max-height: 150px; max-width: 100%; object-fit: contain;">
+                                            @else
+                                                <div class="text-muted">
+                                                    <i class="fa-regular fa-image fa-3x mb-2"></i>
+                                                    <p class="small mb-0">Belum ada logo diatur</p>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                {{-- Kanan: Upload Baru --}}
+                                <div class="col-md-8">
+                                    <label for="site_logo" class="form-label fw-bold">Ganti Logo Baru</label>
+                                    
+                                    {{-- Input FilePond (Tanpa data-file-poster agar kosong) --}}
+                                    <input type="file" name="site_logo" id="site_logo">
+                                    
+                                    @error('site_logo') 
+                                        <div class="text-danger small mt-1">{{ $message }}</div> 
+                                    @enderror
+                                    
+                                    <div class="alert alert-info d-flex align-items-center mt-2 mb-0 py-2 px-3 small border-0 bg-opacity-10 bg-info text-info" role="alert">
+                                        <i class="fa-solid fa-circle-info me-2 fa-lg"></i>
+                                        <div>
+                                            Format: <strong>jpg, jpeg, png, webp</strong>.<br>
+                                            Ukuran Maksimal: <strong>2MB</strong>.
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-text">Ekstensi yang diperbolehkan: jpg, jpeg, png. Ukuran maksimal: 2MB.</div>
+                            {{-- Akhir Grid Logo --}}
+
                         </div>
                     </div>
 
+                    {{-- TAB KONTAK --}}
                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                         <div class="py-4">
                             <div class="mb-3">
@@ -65,54 +109,56 @@
                             </div>
                             <div class="mb-3">
                                 <label for="jam_kerja_input" class="form-label">Jam Kerja (Pisahkan dengan baris baru / Enter)</label>
-                                <textarea class="form-control" id="jam_kerja_input" name="jam_kerja_input" rows="3" placeholder="Senin - Jumat: 08:00 - 16:00
-Sabtu: 08:00 - 12:00">{{ old('jam_kerja_input', $settings->jam_kerja_input) }}</textarea>
+                                <textarea class="form-control" id="jam_kerja_input" name="jam_kerja_input" rows="3" placeholder="Senin - Jumat: 08:00 - 16:00&#10;Sabtu: 08:00 - 12:00">{{ old('jam_kerja_input', $settings->jam_kerja_input) }}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="telepon_input" class="form-label">Nomor Telepon (Pisahkan dengan baris baru / Enter)</label>
-                                <textarea class="form-control" id="telepon_input" name="telepon_input" rows="3" placeholder="0812-XXXX-XXXX
-(0536) XXX-XXX">{{ old('telepon_input', $settings->telepon_input) }}</textarea>
+                                <textarea class="form-control" id="telepon_input" name="telepon_input" rows="3" placeholder="0812-XXXX-XXXX&#10;(0536) XXX-XXX">{{ old('telepon_input', $settings->telepon_input) }}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="google_map_url" class="form-label">URL Google Maps (untuk iFrame)</label>
                                 <textarea class="form-control" id="google_map_url" name="google_map_url" rows="4" placeholder="Tempelkan URL 'src' dari iframe Google Maps di sini...">{{ old('google_map_url', $settings->google_map_url) }}</textarea>
-                                <div class="form-text">Contoh: <strong>https://www.google.com/maps/embed?pb=...</strong> (Hanya URL di dalam src="...")</div>
+                                <div class="form-text">Contoh: <strong>https://www.google.com/maps/embed?...</strong> (Hanya URL di dalam src="...")</div>
                                 @error('google_map_url') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
                             </div>
                         </div>
                     </div>
 
+                    {{-- TAB SOSIAL MEDIA --}}
                     <div class="tab-pane fade" id="social" role="tabpanel" aria-labelledby="social-tab">
                         <div class="py-4">
-                            <p class="text-muted">Isi URL lengkap. Kosongkan untuk menyembunyikan ikon.</p>
-                            <div class="mb-3">
-                                <label for="facebook_url" class="form-label">Facebook URL</label>
-                                <input type="url" class="form-control" id="facebook_url" name="facebook_url" value="{{ old('facebook_url', $settings->facebook_url) }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="twitter_url" class="form-label">Twitter URL</label>
-                                <input type="url" class="form-control" id="twitter_url" name="twitter_url" value="{{ old('twitter_url', $settings->twitter_url) }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="instagram_url" class="form-label">Instagram URL</label>
-                                <input type="url" class="form-control" id="instagram_url" name="instagram_url" value="{{ old('instagram_url', $settings->instagram_url) }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="youtube_url" class="form-label">YouTube URL</label>
-                                <input type="url" class="form-control" id="youtube_url" name="youtube_url" value="{{ old('youtube_url', $settings->youtube_url) }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="whatsapp_url" class="form-label">WhatsApp URL (cth: https://wa.me/62...)</label>
-                                <input type="url" class="form-control" id="whatsapp_url" name="whatsapp_url" value="{{ old('whatsapp_url', $settings->whatsapp_url) }}">
-                            </div>
-                            <div class="mb-3">
-                                <label for="tiktok_url" class="form-label">TikTok URL</label>
-                                <input type="url" class="form-control" id="tiktok_url" name="tiktok_url" value="{{ old('tiktok_url', $settings->tiktok_url) }}" placeholder="https://www.tiktok.com/@profilanda">
-                                @error('tiktok_url') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
+                            <p class="text-muted mb-4">Isi URL lengkap (dimulai dengan https://). Kosongkan kolom untuk menyembunyikan ikon di website.</p>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="facebook_url" class="form-label"><i class="fa-brands fa-facebook text-primary me-1"></i> Facebook URL</label>
+                                    <input type="url" class="form-control" id="facebook_url" name="facebook_url" value="{{ old('facebook_url', $settings->facebook_url) }}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="twitter_url" class="form-label"><i class="fa-brands fa-x-twitter text-dark me-1"></i> Twitter / X URL</label>
+                                    <input type="url" class="form-control" id="twitter_url" name="twitter_url" value="{{ old('twitter_url', $settings->twitter_url) }}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="instagram_url" class="form-label"><i class="fa-brands fa-instagram text-danger me-1"></i> Instagram URL</label>
+                                    <input type="url" class="form-control" id="instagram_url" name="instagram_url" value="{{ old('instagram_url', $settings->instagram_url) }}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="youtube_url" class="form-label"><i class="fa-brands fa-youtube text-danger me-1"></i> YouTube URL</label>
+                                    <input type="url" class="form-control" id="youtube_url" name="youtube_url" value="{{ old('youtube_url', $settings->youtube_url) }}">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="whatsapp_url" class="form-label"><i class="fa-brands fa-whatsapp text-success me-1"></i> WhatsApp URL</label>
+                                    <input type="url" class="form-control" id="whatsapp_url" name="whatsapp_url" value="{{ old('whatsapp_url', $settings->whatsapp_url) }}" placeholder="https://wa.me/62...">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="tiktok_url" class="form-label"><i class="fa-brands fa-tiktok text-dark me-1"></i> TikTok URL</label>
+                                    <input type="url" class="form-control" id="tiktok_url" name="tiktok_url" value="{{ old('tiktok_url', $settings->tiktok_url) }}" placeholder="https://www.tiktok.com/@profilanda">
+                                    @error('tiktok_url') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
+                                </div>
                             </div>
                         </div>
                     </div>
 
+                    {{-- TAB FOOTER --}}
                     <div class="tab-pane fade" id="footer" role="tabpanel" aria-labelledby="footer-tab">
                         <div class="py-4">
                             <div class="mb-3">
@@ -124,8 +170,11 @@ Sabtu: 08:00 - 12:00">{{ old('jam_kerja_input', $settings->jam_kerja_input) }}</
 
                 </div>
 
-                <div class="mt-4 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary">Simpan Pengaturan</button>
+                {{-- Tombol Simpan --}}
+                <div class="mt-4 pt-3 border-top d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="fa-solid fa-save me-2"></i> Simpan Pengaturan
+                    </button>
                 </div>
 
             </form>
@@ -141,7 +190,8 @@ Sabtu: 08:00 - 12:00">{{ old('jam_kerja_input', $settings->jam_kerja_input) }}</
                 FilePond.create(logoInput, {
                     storeAsFile: true,
                     stylePanelLayout: 'integrated',
-                    labelIdle: `Seret & lepas logo baru atau <span class="filepond--label-action"> Telusuri </span>`,
+                    // Label diubah agar user paham ini untuk GANTI logo
+                    labelIdle: `Seret & lepas untuk <strong>Ganti Logo</strong> atau <span class="filepond--label-action"> Telusuri </span>`,
                     
                     // Validasi (sesuai controller)
                     acceptedFileTypes: ['image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'],

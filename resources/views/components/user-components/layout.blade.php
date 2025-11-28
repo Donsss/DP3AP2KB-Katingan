@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <title>@yield('title', $settings->site_name ?? 'DP3A')</title>
+    <title>@yield('title', $settings->site_name ?? 'DP3AP2KB')</title>
 
     @if(isset($settings) && $settings->site_logo)
         <link rel="icon" href="{{ asset('storage/' . $settings->site_logo) }}">

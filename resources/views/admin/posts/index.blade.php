@@ -19,7 +19,7 @@
                 </form>
 
                 <a href="{{ route('posts.create') }}" class="btn btn-primary text-nowrap">
-                    <i class="fas fa-plus me-2"></i> Create Post
+                    <i class="fas fa-plus me-2"></i> Buat Berita Baru
                 </a>
             </div>
         </div>

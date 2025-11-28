@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="h4 font-weight-bold">{{ __('Create New Post') }}</h2>
+        <h2 class="h4 font-weight-bold">{{ __('Buat Berita Terbaru') }}</h2>
     </x-slot>
 
     <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
@@ -37,15 +37,15 @@
                             </select>
                         </div>
                         <div class="d-flex justify-content-end gap-2">
-                            <a href="{{ route('posts.index') }}" class="btn btn-secondary">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Save Post</button>
+                            <a href="{{ route('posts.index') }}" class="btn btn-secondary">Batal</a>
+                            <button type="submit" class="btn btn-primary">Simpan Berita</button>
                         </div>
                     </div>
                 </div>
 
                 {{-- Featured Image sekarang di posisi kedua --}}
                 <div class="card shadow-sm border-0 mt-4">
-                    <div class="card-header"><strong>Featured Image</strong></div>
+                    <div class="card-header"><strong>Thumbnail</strong></div>
                     <div class="card-body">
                         <input type="file" name="image" id="image" required>
                         @error('image') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
@@ -60,28 +60,19 @@
     @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 1. JANGAN panggil FilePond.registerPlugin() lagi
-            
             const inputElement = document.querySelector('input[id="image"]');
             
             const pond = FilePond.create(inputElement, {
                 storeAsFile: true,
-                stylePanelLayout: 'integrated', // Ini sudah benar
+                stylePanelLayout: 'integrated', 
                 imagePreviewHeight: 170,
-                
-                // 2. TAMBAHKAN VALIDASI KONSISTEN
-                // (Sesuaikan dengan controller Anda!)
+
                 maxFileSize: '2MB', 
                 acceptedFileTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'],
-
-                // 3. Tambahkan label yang SAMA juga
                 labelIdle: `Seret & lepas gambar Anda atau <span class="filepond--label-action"> Telusuri </span>`,
                 labelFileValidateTypeNotAllowed: 'Jenis file tidak valid (Hanya .jpg, .png, .webp)',
                 labelMaxFileSizeExceeded: 'File terlalu besar (Maks 2MB)',
                 labelMaxFileSize: 'Ukuran file maksimum adalah {filesize}',
-                
-                // 4. HAPUS imageCropAspectRatio untuk sekarang,
-                //    karena plugin-nya belum diinstal.
             });
         });
     </script>

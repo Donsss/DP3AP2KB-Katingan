@@ -149,6 +149,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('activity-log', [ActivityLogController::class, 'index'])->name('admin.activity-log.index');
+    Route::delete('/activity-log/{id}', [ActivityLogController::class, 'destroy'])->name('admin.activity-log.destroy');
 });
 
 Route::fallback(function () {

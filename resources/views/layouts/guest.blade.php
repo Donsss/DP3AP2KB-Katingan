@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'KemenPPPA') }}</title>
+    <title>{{ $settings->site_name ?? config('app.name', 'DP3AP2KB') }}</title>
+
+    @if(isset($settings) && $settings->site_logo)
+        <link rel="icon" href="{{ asset('storage/' . $settings->site_logo) }}">
+    @else
+        <link rel="icon" href="{{ asset('favicon.ico') }}">
+    @endif
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     

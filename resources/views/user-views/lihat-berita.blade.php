@@ -59,7 +59,7 @@
                             <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid rounded shadow-sm" alt="{{ $post->title }}">
                         </figure>
 
-                        <section class="fs-5 post-content">
+                        <section class="fs-5 post-content unselectable-content">
                             {!! $post->body !!}
                         </section>
                     </article>
@@ -73,6 +73,13 @@
         .post-content img { max-width: 100%; height: auto; border-radius: 0.5rem; margin-top: 1rem; margin-bottom: 1rem; }
         .post-content h1, .post-content h2, .post-content h3 { margin-top: 1.5rem; margin-bottom: 1rem; font-weight: 600; }
         
+        .post-content {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;      
+        }
+
         .share-buttons .share-btn {
             display: inline-flex; align-items: center; justify-content: center;
             width: 40px; height: 40px; border-radius: 50%;
@@ -108,6 +115,27 @@
                     setTimeout(() => { copyStatus.textContent = ''; }, 2000);
                 });
             });
+
+            const contentArea = document.querySelector('.post-content');
+
+            if (contentArea) {
+                contentArea.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                });
+
+                contentArea.addEventListener('copy', function(e) {
+                    e.preventDefault();
+                    return false;
+                });
+                
+                contentArea.addEventListener('cut', function(e) {
+                    e.preventDefault();
+                    return false;
+                });
+                contentArea.addEventListener('dragstart', function(e) {
+                    e.preventDefault();
+                });
+            }
         });
     </script>
     @endpush
