@@ -34,6 +34,7 @@ class Post extends Model
         return LogOptions::defaults()
             ->logOnly(['title', 'image', 'excerpt', 'body', 'status', 'published_at'])
             ->logOnlyDirty()
+            ->dontLogIfAttributesChangedOnly(['view_count'])
             ->setDescriptionForEvent(fn(string $eventName) => "Berita \"{$this->title}\" telah {$eventName}");
     }
 }
