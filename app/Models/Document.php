@@ -4,13 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-// ▼▼ TAMBAHKAN INI ▼▼
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
 class Document extends Model
 {
-    use HasFactory, LogsActivity; // <-- TAMBAHKAN LogsActivity
+    use HasFactory, LogsActivity;
 
     protected $fillable = [
         'title',
@@ -20,11 +19,10 @@ class Document extends Model
         'download_count',
     ];
 
-    // ▼▼ TAMBAHKAN METHOD INI ▼▼
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['title']) // Hanya lacak perubahan judul
+            ->logOnly(['title'])
             ->logOnlyDirty()
             ->setDescriptionForEvent(fn(string $eventName) => "Dokumen \"{$this->title}\" telah {$eventName}");
     }

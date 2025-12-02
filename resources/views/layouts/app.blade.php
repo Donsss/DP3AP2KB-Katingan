@@ -45,19 +45,14 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            
-            /* Ganti warna latar belakang jika perlu */
+
             background-color: #FFFFFF; 
-            
-            /* Taruh di paling atas */
             z-index: 9999; 
             
-            /* Pusatkan komponen loader Anda */
             display: flex;
             align-items: center;
             justify-content: center;
             
-            /* Mulai dalam keadaan tersembunyi */
             display: none; 
         }
         @media (max-width: 768px) {
@@ -173,14 +168,7 @@
             document.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', (e) => {
                     const href = link.getAttribute('href');
-                    
-                    // Ini adalah filter PENTING:
-                    // Kita tidak mau loader muncul jika user cuma klik:
-                    // - Link dropdown (data-bs-toggle)
-                    // - Link tab (data-bs-toggle)
-                    // - Link "#" (hash link)
-                    // - Link yang membuka tab baru (target="_blank")
-                    // - Link javascript (javascript:)
+            
                     if (href && 
                         href !== '#' && 
                         !href.startsWith('#') && 

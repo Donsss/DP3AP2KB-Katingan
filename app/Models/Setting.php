@@ -16,10 +16,10 @@ class Setting extends Model {
         'instagram_url',
         'youtube_url',
         'whatsapp_url',
-        'site_name',         // <-- BARU
-        'site_logo',         // <-- BARU
-        'copyright_text',    // <-- BARU
-        'footer_about',      // <-- BARU
+        'site_name',         
+        'site_logo',         
+        'copyright_text',    
+        'footer_about',      
         'twitter_url',
         'google_map_url',
         'tiktok_url',

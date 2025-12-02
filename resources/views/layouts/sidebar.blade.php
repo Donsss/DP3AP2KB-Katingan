@@ -7,47 +7,55 @@
         transition: all 0.3s;
         border-right: 1px solid #e9ecef;
         box-shadow: 0 0 15px rgba(0,0,0,0.05);
+        
+        height: 100vh;       
+        overflow-y: auto;    
+        position: sticky;    
+        top: 0;              
+        z-index: 1000;       
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
     }
 
     #sidebar.collapsed {
         margin-left: -250px;
     }
 
-    .sidebar-header {
-        padding: 20px;
-        text-align: center;
-        border-bottom: 1px solid #e9ecef;
+    #sidebar::-webkit-scrollbar {
+        width: 6px; 
     }
+
+    #sidebar::-webkit-scrollbar-track {
+        background: transparent; 
+    }
+
+    #sidebar::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.1); 
+        border-radius: 10px; 
+    }
+
+    #sidebar:hover::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .sidebar-header {
+        padding: 15px 20px;
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid #e9ecef;
+        position: sticky;
+        top: 0;
+        background: #fff;
+        z-index: 10;
+    }
+
     .sidebar-header h3 {
         color: #333;
         margin: 0;
         font-weight: 700;
     }
-    .sidebar-header h3 i {
-        color: #0d6efd;
-    }
-    .user-profile {
-        text-align: center;
-        padding: 20px 15px;
-        border-bottom: 1px solid #e9ecef;
-    }
-    .user-profile .fw-bold {
-        font-size: 1.1em;
-        margin-top: 10px;
-    }
-    .user-profile .online-status {
-        display: inline-block;
-        font-size: 0.8em;
-        color: #28a745;
-        border: 1px solid #28a745;
-        padding: 2px 10px;
-        border-radius: 12px;
-        margin-top: 5px;
-    }
-    .user-profile .online-status::before {
-        content: '●';
-        margin-right: 5px;
-    }
+    
     .sidebar-heading {
         padding: 10px 20px;
         font-size: 0.8em;
@@ -55,13 +63,11 @@
         text-transform: uppercase;
         font-weight: 700;
     }
-    .sidebar-header {
-            padding: 15px 20px;
-            display: flex; 
-            justify-content: center;
-            align-items: center;
-            border-bottom: 1px solid #e9ecef;
-        }
+
+    #sidebar .list-unstyled {
+        margin-bottom: 20px;
+    }
+
     #sidebar .list-unstyled a {
         padding: 10px 20px;
         display: block;
@@ -94,22 +100,25 @@
 
     @media (max-width: 768px) {
         #sidebar {
-            position: absolute;
-            z-index: 1000;
-            height: 100%;
+            position: fixed; 
+            height: 100vh; 
             margin-left: -250px;
+            top: 0;
+            left: 0;
+            bottom: 0;  
         }
 
         #sidebar.collapsed {
-            margin-left: 0;
+            margin-left: 0; 
+            box-shadow: 5px 0 15px rgba(0,0,0,0.1);
         }
 
         .wrapper {
            position: relative;
         }
-
     }
 </style>
+
 <nav id="sidebar">
     <div class="sidebar-header">
         <div class="d-flex align-items-center justify-content-center text-start">
