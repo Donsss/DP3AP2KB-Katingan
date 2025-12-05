@@ -73,14 +73,14 @@
             min-height: 2.6em;
             display: -webkit-box;
             -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;  
+            -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
         .member-card.is-spacer {
             visibility: hidden;
-            border: 0;        
-            box-shadow: none;   
+            border: 0;
+            box-shadow: none; 
             background: transparent;
         }
         
@@ -131,7 +131,7 @@
                                                     {{-- Jika ada foto, tampilkan foto --}}
                                                     <img src="{{ asset('storage/' . $anggota->foto) }}" 
                                                          alt="{{ $anggota->nama }}" 
-                                                         class="member-photo">
+                                                         class="member-photo" loading="lazy" decoding="async">
                                                 @else
                                                     {{-- Jika tidak ada foto, tampilkan ikon --}}
                                                     <i class="fas fa-user-tie fa-5x text-muted"></i>
@@ -141,7 +141,7 @@
                                             <div class="member-card-content">
                                                 <h5 class="card-title fw-bold text-primary">{{ $anggota->nama }}</h5>
                                                 <p class="card-subtitle text-muted small">{{ $anggota->jabatan }}</p>
-                                                <small class="d-block text-secondary">NIP: {{ $anggota->nip ?? '-' }}</small>
+                                                <small class="d-block text-secondary">NIP: {{ $anggota->nip ? \Illuminate\Support\Str::mask($anggota->nip, '*', 0, 6) : '-' }}</small>
                                             </div>
                                         </div>
                                     @else

@@ -31,6 +31,7 @@
     <meta name="twitter:image" content="@yield('meta_image', isset($settings) && $settings->site_logo ? asset('storage/' . $settings->site_logo) : asset('img/default-share.jpg'))">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @stack('meta')
     @stack('styles')
     @vite(['resources/css/frontend.scss', 'resources/js/frontend.js'])
@@ -66,6 +67,6 @@
     <x-user-components.back-to-top />
 
     @stack('scripts')
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </body>
 </html>

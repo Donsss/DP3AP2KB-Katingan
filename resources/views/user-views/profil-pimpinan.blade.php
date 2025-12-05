@@ -25,7 +25,7 @@
                         <h3 class="fw-bold mb-3 text-primary">{{ $pimpinan->name }}</h3>
                         <dl class="row g-3">
                             <dt class="col-sm-4 fw-semibold">NIP</dt>
-                            <dd class="col-sm-8"><span class="d-none d-sm-inline">: </span>{{ $pimpinan->nip ?? '-' }}</dd>
+                            <dd class="col-sm-8"><span class="d-none d-sm-inline">: </span>{{ $pimpinan->nip ? \Illuminate\Support\Str::mask($pimpinan->nip, '*', 0, 6) : '-' }}</dd>
 
                             <dt class="col-sm-4 fw-semibold">Pangkat/Golongan</dt>
                             <dd class="col-sm-8"><span class="d-none d-sm-inline">: </span>{{ $pimpinan->pangkat_golongan ?? '-' }}</dd>
