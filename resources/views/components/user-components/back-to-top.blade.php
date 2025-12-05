@@ -14,7 +14,7 @@
         z-index: 99;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease, width 0.3s ease, background-color 0.3s ease;
+        transition: all 0.3s ease;
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -24,7 +24,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: #ffffff;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         cursor: pointer;
         overflow: hidden;
     }
@@ -61,6 +61,7 @@
         content: "Back to Top";
         color: white;
         font-size: 0px;
+        transition-duration: 0.3s;
     }
 
     .button-btt:hover::before {
@@ -68,6 +69,31 @@
         opacity: 1;
         bottom: unset;
         transition-duration: 0.3s;
+    }
+
+    @media (hover: hover) {
+        .button-btt:hover {
+            width: 140px;
+            border-radius: 50px;
+            background-color: #01baf2;
+        }
+
+        .button-btt:hover .svgIcon {
+            transform: translateY(-200%);
+        }
+
+        .button-btt:hover::before {
+            font-size: 13px;
+            opacity: 1;
+            bottom: unset;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    .button-btt:active {
+        background-color: #01baf2;
+        transform: scale(0.9);
     }
 </style>
 

@@ -159,3 +159,17 @@
         </div>
     </section>
 </x-user-components.layout>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Inisialisasi AOS
+        AOS.init();
+
+        // Paksa refresh setiap kali ada gambar yang selesai di-load
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        images.forEach(img => {
+            img.addEventListener('load', () => {
+                AOS.refresh();
+            });
+        });
+    });
+</script>
