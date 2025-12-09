@@ -40,25 +40,196 @@
 </section>
 
 <style>
-    .agenda-section .agenda-wrapper { background-color: #ffffff; border-radius: 1rem; overflow: hidden; border: 1px solid #e9ecef; }
-    .calendar-container { padding: 2rem; background-color: #fff; }
-    .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-    .calendar-header h5 { color: #343a40; }
-    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; }
-    .calendar-weekdays { font-weight: 600; color: #6c757d; font-size: 0.85rem; text-align: center; margin-bottom: 0.75rem; }
-    .calendar-day { position: relative; display: flex; justify-content: center; align-items: center; height: 42px; font-size: 0.9rem; border-radius: 50%; cursor: pointer; transition: background-color 0.2s ease, color 0.2s ease; border: 2px solid transparent; }
-    .calendar-day:hover { background-color: #e9ecef; }
-    .calendar-day.today { border-color: #0d6efd; font-weight: bold; }
-    .calendar-day.selected { background-color: #0d6efd; color: #fff; font-weight: bold; }
-    .event-dot { position: absolute; bottom: 6px; width: 5px; height: 5px; border-radius: 50%; background-color: #dc3545; }
-    .selected .event-dot { background-color: #fff; }
-    .agenda-details-container { background-color: #f8f9fa; padding: 2rem; height: 100%; border-left: 1px solid #e9ecef; }
-    .agenda-date-header { font-size: 1.2rem; font-weight: bold; color: #343a40; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid #dee2e6; }
-    .agenda-card { background-color: #fff; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem; border: 1px solid #e9ecef; display: flex; align-items: center; gap: 1rem; }
-    .agenda-time { font-weight: 600; font-size: 0.9rem; padding: 0.5rem 0.75rem; background-color: #e9ecef; border-radius: 0.375rem; color: #495057; text-align: center; }
-    .agenda-title { margin: 0; font-weight: 600; color: #212529; }
-    .no-agenda { text-align: center; padding: 3rem 1rem; }
-    @media (max-width: 991.98px) { .agenda-details-container { border-left: none; border-top: 1px solid #e9ecef; } }
+    /* Wrapper Utama */
+    .agenda-section .agenda-wrapper { 
+        background-color: #ffffff; 
+        border-radius: 1rem; 
+        overflow: hidden; 
+        border: 1px solid #e9ecef; 
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+    }
+
+    /* --- Bagian Kiri: Kalender --- */
+    .calendar-container { 
+        padding: 2rem; 
+        background-color: #fff; 
+        height: 100%; 
+        display: flex;
+        flex-direction: column;
+    }
+
+    .calendar-header { 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        margin-bottom: 2rem; 
+        flex-shrink: 0;
+    }
+
+    .calendar-header h5 { 
+        color: #343a40; 
+    }
+
+    .calendar-grid { 
+        display: grid; 
+        grid-template-columns: repeat(7, 1fr); 
+        gap: 0.5rem; 
+    }
+
+    .calendar-weekdays { 
+        font-weight: 600; 
+        color: #6c757d; 
+        font-size: 0.85rem; 
+        text-align: center; 
+        margin-bottom: 0.75rem; 
+    }
+
+    .calendar-day { 
+        position: relative; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        height: 42px; 
+        font-size: 0.9rem; 
+        border-radius: 50%; 
+        cursor: pointer; 
+        transition: all 0.2s ease; 
+        border: 2px solid transparent; 
+    }
+
+    .calendar-day:not(.other-month):hover { 
+        background-color: #e9ecef; 
+    }
+
+    .calendar-day.today { 
+        border-color: #0d6efd; 
+        font-weight: bold; 
+        color: #0d6efd;
+    }
+
+    .calendar-day.selected { 
+        background-color: #0d6efd; 
+        color: #fff; 
+        font-weight: bold; 
+        border-color: #0d6efd;
+    }
+
+    .event-dot { 
+        position: absolute; 
+        bottom: 6px; 
+        width: 5px; 
+        height: 5px; 
+        border-radius: 50%; 
+        background-color: #dc3545; 
+    }
+
+    .selected .event-dot { 
+        background-color: #fff; 
+    }
+
+    .agenda-details-container { 
+        background-color: #f8f9fa; 
+        border-left: 1px solid #e9ecef; 
+        
+        display: flex;
+        flex-direction: column;
+        height: 400px; 
+        
+        overflow: hidden; 
+        padding: 0; 
+    }
+
+    /* Header Tanggal (Diam/Statis) */
+    .agenda-date-header { 
+        font-size: 1.2rem; 
+        font-weight: bold; 
+        color: #343a40; 
+        padding: 2rem 2rem 1rem 2rem; 
+        margin-bottom: 0;
+        background-color: #f8f9fa;
+        border-bottom: 2px solid #dee2e6; 
+        z-index: 10;
+        flex-shrink: 0; 
+        box-shadow: 0 4px 6px -4px rgba(0,0,0,0.1); 
+    }
+
+    /* Area Scroll (Konten yang bergerak) */
+    .agenda-scroll-area {
+        padding: 1.5rem 2rem 2rem 2rem; 
+        overflow-y: auto;
+        flex-grow: 1; 
+    }
+
+    /* Kustomisasi Scrollbar */
+    .agenda-scroll-area::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    .agenda-scroll-area::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+    }
+    
+    .agenda-scroll-area::-webkit-scrollbar-thumb {
+        background: #ced4da; 
+        border-radius: 4px; 
+    }
+    
+    .agenda-scroll-area::-webkit-scrollbar-thumb:hover {
+        background: #adb5bd; 
+    }
+
+    .agenda-card { 
+        background-color: #fff; 
+        border-radius: 0.5rem; 
+        padding: 1rem; 
+        margin-bottom: 1rem; 
+        border: 1px solid #e9ecef; 
+        display: flex; 
+        align-items: center; 
+        gap: 1rem; 
+        transition: transform 0.2s ease, box-shadow 0.2s ease; 
+    }
+
+    .agenda-card:hover { 
+        transform: translateY(-3px); 
+        box-shadow: 0 4px 15px rgba(0,0,0,0.07); 
+    }
+
+    .agenda-time { 
+        font-weight: 600; 
+        font-size: 0.9rem; 
+        padding: 0.5rem 0.75rem; 
+        background-color: #e9ecef; 
+        border-radius: 0.375rem; 
+        color: #495057; 
+        text-align: center; 
+        min-width: 80px; 
+    }
+
+    .agenda-title { 
+        margin: 0; 
+        font-weight: 600; 
+        color: #212529; 
+        line-height: 1.4;
+    }
+
+    .no-agenda { 
+        text-align: center; 
+        padding: 3rem 1rem; 
+        color: #6c757d;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%; 
+    }
+
+    @media (max-width: 991.98px) { 
+        .agenda-details-container { 
+            border-left: none; 
+            border-top: 1px solid #e9ecef; 
+            height: 400px; 
+        } 
+    }
 </style>
 
 @push('scripts')
@@ -111,31 +282,40 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     function renderAgendaDetails(date) {
-        const events = eventsData[date] || [];
-        const dateObj = new Date(date + 'T00:00:00');
-        const dayName = dateObj.toLocaleDateString('id-ID', { weekday: 'long' });
-        const formattedDate = dateObj.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+    const events = eventsData[date] || [];
+    const dateObj = new Date(date + 'T00:00:00');
+    const dayName = dateObj.toLocaleDateString('id-ID', { weekday: 'long' });
+    const formattedDate = dateObj.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
 
-        let html = `<h5 class="agenda-date-header">${dayName}, ${formattedDate}</h5>`;
+    // 1. Buat Header (Di luar area scroll)
+    // Perhatikan: class sudah ada di CSS baru
+    let html = `<div class="agenda-date-header">${dayName}, ${formattedDate}</div>`;
 
-        if (events.length > 0) {
-            events.forEach(event => {
-                const time = new Date(`1970-01-01T${event.time}`).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-                html += `
-                    <div class="agenda-card">
-                        <div class="agenda-time">${time} - Selesai</div>
-                        <div class="flex-grow-1">
-                            <h6 class="agenda-title">${event.title}</h6>
-                            ${event.description ? `<p class="agenda-description text-muted small mb-0">${event.description}</p>` : ''}
-                        </div>
+    // 2. Buka Wrapper Scroll (agenda-scroll-area)
+    html += `<div class="agenda-scroll-area">`;
+
+    if (events.length > 0) {
+        events.forEach(event => {
+            const time = new Date(`1970-01-01T${event.time}`).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            html += `
+                <div class="agenda-card">
+                    <div class="agenda-time">${time} - Selesai</div>
+                    <div class="flex-grow-1">
+                        <h6 class="agenda-title">${event.title}</h6>
+                        ${event.description ? `<p class="agenda-description text-muted small mb-0">${event.description}</p>` : ''}
                     </div>
-                `;
-            });
-        } else {
-            html += '<div class="no-agenda text-muted"><i class="fas fa-calendar-check fa-2x mb-3"></i><p>Tidak ada agenda pada tanggal ini.</p></div>';
-        }
-        agendaDetailsEl.innerHTML = html;
+                </div>
+            `;
+        });
+    } else {
+        html += '<div class="no-agenda text-muted"><i class="fas fa-calendar-check fa-2x mb-3"></i><p>Tidak ada agenda pada tanggal ini.</p></div>';
     }
+
+    // 3. Tutup Wrapper Scroll
+    html += `</div>`;
+
+    agendaDetailsEl.innerHTML = html;
+}
 
     renderCalendar();
 
